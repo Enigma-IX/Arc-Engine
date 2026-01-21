@@ -28,20 +28,20 @@ namespace Core {
 		requires(std::is_base_of_v<Layer, TLayer>)
 		void PushLayer()
 		{
-			m_LayerStack.push_back(std::make_unique<TLayer>());
-			m_LayerStack.back()->OnAttach();			
+			m_layerStack.push_back(std::make_unique<TLayer>());
+			m_layerStack.back()->OnAttach();			
 		}
 		
 		template<typename TLayer>
 		requires(std::is_base_of_v<Layer, TLayer>)
 		void PopLayer()
 		{
-			for (auto it = m_LayerStack.begin(); it != m_LayerStack.end(); ++it)
+			for (auto it = m_layerStack.begin(); it != m_layerStack.end(); ++it)
 			{
 				if (dynamic_cast<TLayer*>(it->get()))
 				{
 					(*it)->OnDetach();
-					m_LayerStack.erase(it);
+					m_layerStack.erase(it);
 					return;
 				}
 			}
@@ -51,25 +51,25 @@ namespace Core {
 		requires(std::is_base_of_v<Layer, TLayer>)
 		TLayer* GetLayer()
 		{
-			for (const auto& layer : m_LayerStack)
+			for (const auto& layer : m_layerStack)
 			{
-				if (auto casted = dynamic_cast<TLayer*>(layer.get()))
-					return casted;
+				if (typeid(*layer.get()) == typeid(TLayer))
+					return static_cast<TLayer*>(layer.get());
 			}
 			return nullptr;
 		}
 		
-		std::shared_ptr<Window> GetWindow() const { return m_Window; }
+		std::shared_ptr<Window> GetWindow() const { return m_window; }
 		glm::vec2 GetFrameSize() const;
 
 		static Application& Get();
 		static float GetTime();
 	private:
-		ApplicationSpecification m_Specification;
-		std::shared_ptr<Window> m_Window;
+		ApplicationSpecification m_specification;
+		std::shared_ptr<Window> m_window;
 		bool m_Running = false;
 
-		std::vector<std::unique_ptr<Layer>> m_LayerStack;
+		std::vector<std::unique_ptr<Layer>> m_layerStack;
 	};
 
 }

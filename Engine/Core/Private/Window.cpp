@@ -33,7 +33,7 @@ namespace Core {
 		m_Handle->setFramerateLimit(m_Specification.UseFramerateLimit ? m_Specification.FramerateLimit : 0);
 	}
 
-	void Window::Close()
+	void Window::Close() const
 	{
 		if (m_Handle)
 			m_Handle->close();
@@ -59,13 +59,12 @@ namespace Core {
 		m_Handle->display();
 	}
 
-	glm::vec2 Window::GetWindowSize() const 
+	glm::vec2 Window::GetWindowSize() const
 	{
-		sf::Vector2u size = m_Handle->getSize();
-		int width = size.x;
-		int height = size.y;
-		return { width, height };
+		auto size = m_Handle->getSize();
+		return { static_cast<float>(size.x), static_cast<float>(size.y) };
 	}
+
 
 	bool Window::ShouldClose() const
 	{

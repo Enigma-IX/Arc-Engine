@@ -4,7 +4,7 @@ namespace Engine
 {
 	Engine::Engine()
 	{
-		m_InputSystem = new InputSystem();
+		m_InputSystem = std::make_unique<InputSystem>();
 	}
 
 	void Engine::OnUpdate(float dt)

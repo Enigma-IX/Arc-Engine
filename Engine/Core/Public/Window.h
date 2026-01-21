@@ -25,7 +25,7 @@ namespace Core {
 		~Window();
 
 		void Create();
-		void Close();
+		void Close() const;
 		void Destroy();
 		void Clear() const;
 

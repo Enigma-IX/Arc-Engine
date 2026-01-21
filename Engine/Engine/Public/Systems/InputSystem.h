@@ -1,13 +1,12 @@
 #pragma once
 #include "SFML/Window/Event.hpp"
 
-
 namespace Engine
 {
     class InputSystem
     {
     public:
-        InputSystem() = default;
+        InputSystem() {};
         ~InputSystem() = default;
         
         void ProcessEvent(const sf::Event& event);
