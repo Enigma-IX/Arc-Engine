@@ -45,4 +45,4 @@ target_include_directories(Core
 )
 
 # Set as library project in IDE
-set_target_properties(Core PROPERTIES FOLDER "Engine/Modules")
+set_target_properties(Core PROPERTIES FOLDER "Engine")
